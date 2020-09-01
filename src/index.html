@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <title>TF Quiet</title>
+    <meta name="description" content="Dynamically cut out the noise from terraform plan output (post-hoc)">
+    <link rel="stylesheet" href="./style.css"/>
+  </head>
+
+  <body>
+    <form onSubmit="javascript:quieten(event)">
+      <button onClick="javascript:clearInput(event)" class="secondary">Clear input</button>
+      <textarea id="tf-plan" rows="8"></textarea>
+      <button type="submit" class="primary">Quieten</button>
+      <button onClick="javascript:clearOutput(event)" class="secondary alt">Clear output</button>
+    </form>
+
+    <div id="summary"></div>
+    <div id="quiet"></div>
+
+    <script src="./ui-helpers.js" charset="utf-8"></script>
+    <script src="./tf-quiet.js" charset="utf-8"></script>
+  </body>
+</html>
