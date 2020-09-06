@@ -10,12 +10,6 @@ create = (tag, classes, contents) => {
   el.innerHTML = contents
   return el
 }
-addDiv = (parentSelector, classes, contents) => {
-  add(parentSelector, create('div', classes, contents))
-}
-addPre = (parentSelector, classes, contents) => {
-  add(parentSelector, create('pre', `${classes} tf-line`, contents))
-}
 
 clearContents = selector => {
   find(selector).innerHTML = ''
