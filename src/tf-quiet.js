@@ -19,6 +19,22 @@ quieten = e => noDefault(e, () => {
   res.forEach(el => add('#quiet', el))
 })
 
+onChange_hideUnchanged = e => noDefault(e, () => {
+  const hidden = e.target.checked
+  setHidden(hidden, '.no-change')
+})
+
+onChange_hideComments = e => noDefault(e, () => {
+  const hidden = e.target.checked
+  setHidden(hidden, '.comment')
+})
+
+const setHidden = (hidden, classSelector) => {
+  const addHidden = it => { it.classList.add('hidden') }
+  const removeHidden = it => { it.classList.remove('hidden') }
+  findAll(classSelector).forEach(hidden ? addHidden : removeHidden)
+}
+
 const noDefault = (e, f) => {
   if (e) { e.preventDefault() }
   return f()
@@ -37,7 +53,11 @@ const classForLine = line => ({
   '~': 'change',
   '-': 'destroy',
   '#': 'comment'
-})[line.trim()[0]] || (line.includes('->') ? 'translate' : '')
+})[line.trim()[0]] || (
+  line.includes('->') ? 'translate' :
+  line.includes('<=') ? 'lookup' :
+  'no-change'
+)
 
 const trimEnds = lines => {
   const start = indexOfFirstLine(lines)

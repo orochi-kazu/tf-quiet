@@ -7,7 +7,7 @@ This app intends to add some nice UX around it, to highlight the most relevant b
 
 - [x] Highlight unfiltered output
 - [ ] Collapse resources with no changes (checkbox defaults to `on`)
-- [ ] Hide lines with no changes (checkbox defaults to `on`)
+- [o] Hide lines with no changes (checkbox defaults to `on`)
 - [ ] Publish as interactive app
 
 ## Contributing

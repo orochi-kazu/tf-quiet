@@ -33,6 +33,13 @@ button.secondary.alt {
   background-color: aliceblue;
 }
 
+#controls {
+  display: flex;
+}
+#controls > * {
+  flex-grow: 1;
+}
+
 #summary {
   border: 0.3rem solid lightgrey;
   border-radius: 0.5rem;
@@ -50,8 +57,17 @@ button.secondary.alt {
 .tf-line.translate {
   background-color: lightblue;
 }
+.tf-line.lookup {
+  background-color: lavender;
+}
 .tf-line.comment {
   color: lightgrey;
+}
+.tf-line.no-change {
+  color: gray;
+}
+.hidden {
+  display: none;
 }
 
 pre {
