@@ -12,5 +12,7 @@ create = (tag, classes, contents) => {
 }
 
 clearContents = selector => {
-  find(selector).innerHTML = ''
+  const el = find(selector)
+  el.innerHTML = ''
+  el.value = ''
 }
