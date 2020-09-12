@@ -1,0 +1,21 @@
+{
+  "name": "tf-quiet",
+  "version": "1.0.0",
+  "description": "Dynamically cut out the noise from terraform plan output (post-hoc)",
+  "scripts": {
+    "start": "http-server src -p 3456"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:orochi-kazu/tf-quiet"
+  },
+  "keywords": [
+    "terraform",
+    "plan"
+  ],
+  "author": "orochi-kazu",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^0.12.3"
+  }
+}
