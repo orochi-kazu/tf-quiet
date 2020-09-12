@@ -1,12 +1,17 @@
-clearInput = e => noDefault(e, () => {
+import {
+  find, findAll,
+  add, create,
+  clearContents
+} from './ui-helpers.js'
+
+const clearInput = e => noDefault(e, () => {
   clearContents('#tf-plan')
 })
-clearOutput = e => noDefault(e, () => {
+const clearOutput = e => noDefault(e, () => {
   clearContents('#summary')
   clearContents('#quiet')
 })
-
-quieten = e => noDefault(e, () => {
+const quieten = e => noDefault(e, () => {
   clearOutput()
   const planEl = find('#tf-plan')
   const lines = trimEnds(planEl.value.split('\n'))
@@ -19,12 +24,17 @@ quieten = e => noDefault(e, () => {
   res.forEach(el => add('#quiet', el))
 })
 
-onChange_hideUnchanged = e => noDefault(e, () => {
+const onClick = {
+  clearInput,
+  clearOutput,
+  quieten
+}
+
+const hideUnchanged = e => noDefault(e, () => {
   const hidden = e.target.checked
   setHidden(hidden, '.no-change')
 })
-
-onChange_hideComments = e => noDefault(e, () => {
+const hideComments = e => noDefault(e, () => {
   const hidden = e.target.checked
   setHidden(hidden, '.comment')
 })
@@ -33,6 +43,11 @@ const setHidden = (hidden, classSelector) => {
   const addHidden = it => { it.classList.add('hidden') }
   const removeHidden = it => { it.classList.remove('hidden') }
   findAll(classSelector).forEach(hidden ? addHidden : removeHidden)
+}
+
+const onChange = {
+  hideUnchanged,
+  hideComments
 }
 
 const noDefault = (e, f) => {
@@ -149,3 +164,6 @@ const resourcesFromTree = (children, indent = 0) => children.reduce((acc, it) =>
   }
   return acc
 }, [])
+
+export default { onClick, onChange }
+export { onClick, onChange }

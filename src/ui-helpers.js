@@ -1,18 +1,24 @@
-find = selector => document.querySelector(selector)
-findAll = selector => document.querySelectorAll(selector)
+const find = selector => document.querySelector(selector)
+const findAll = selector => document.querySelectorAll(selector)
 
-add = (parentSelector, child) => {
+const add = (parentSelector, child) => {
   find(parentSelector).appendChild(child)
 }
-create = (tag, classes, contents) => {
+const create = (tag, classes, contents) => {
   const el = document.createElement(tag)
   el.className = classes
   el.innerHTML = contents
   return el
 }
 
-clearContents = selector => {
+const clearContents = selector => {
   const el = find(selector)
   el.innerHTML = ''
   el.value = ''
+}
+
+export {
+  find, findAll,
+  add, create,
+  clearContents
 }

@@ -14,11 +14,11 @@
 
       <div id="controls">
         <span>
-          <input id="hide-unchanged" type="checkbox" onChange="javascript:onChange_hideUnchanged(event)"/>
+          <input id="hide-unchanged" type="checkbox" onChange="javascript:hideUnchanged(event)"/>
           <label for="hide-unchanged">Hide unchanged lines</label>
         </span>
         <span>
-          <input id="hide-comments" type="checkbox" onChange="javascript:onChange_hideComments(event)"/>
+          <input id="hide-comments" type="checkbox" onChange="javascript:hideComments(event)"/>
           <label for="hide-comments">Hide comments</label>
         </span>
       </div>
@@ -27,8 +27,13 @@
     <div id="summary"></div>
     <div id="quiet"></div>
 
-    <script src="./ui-helpers.js" charset="utf-8"></script>
-    <script src="./tf-quiet.js" charset="utf-8"></script>
+    <script type="module">
+      import { onClick, onChange } from './tf-quiet.js'
+      const globalFrom = container => it => { globalThis[it] = container[it] };
+
+      ['quieten', 'clearInput', 'clearOutput'].forEach(globalFrom(onClick));
+      ['hideUnchanged', 'hideComments'].forEach(globalFrom(onChange))
+    </script>
     <script src="./collapsible-block.js" charset="utf-8"></script>
   </body>
 </html>
