@@ -1,3 +1,7 @@
+*:focus {
+  outline-color: blueviolet;
+}
+
 span {
   font-family: sans-serif;
 }
@@ -27,13 +31,27 @@ button.primary {
   font-size: 2rem;
   height: 3rem;
 }
+button.primary:focus {
+  background-color: limegreen;
+  outline-color: green;
+}
 button.secondary {
   color: green;
   background-color: palegreen;
 }
+button.secondary:focus {
+  outline-color: limegreen;
+}
 button.secondary.alt {
   color: cornflowerblue;
   background-color: aliceblue;
+}
+button.secondary.alt:focus {
+  outline-color: cornflowerblue;
+}
+button.tertiary {
+  color: mediumpurple;
+  background-color: lavender;
 }
 
 #controls {
@@ -50,14 +68,15 @@ button.secondary.alt {
   margin-bottom: 1.5rem;
 }
 #controls > span {
-  border: 0.2rem solid aliceblue;
+  border: 0.2rem solid lavender;
   border-radius: 0.25rem;
+  color: mediumpurple;
 }
 
 #summary {
   display: flex;
   flex-direction: row;
-  border: 0.3rem solid aliceblue;
+  border: 0.3rem solid lavender;
   border-radius: 0.5rem;
 }
 #summary > * {
