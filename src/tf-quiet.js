@@ -23,11 +23,19 @@ const quieten = e => noDefault(e, () => {
   const res = resourcesFromTree(tree.children)
   res.forEach(el => add('#quiet', el))
 })
+const collapseAll = e => noDefault(e, () => {
+  findAll('collapsible-block').forEach(it => { it.collapse() })
+})
+const expandAll = e => noDefault(e, () => {
+  findAll('collapsible-block').forEach(it => { it.expand() })
+})
 
 const onClick = {
   clearInput,
   clearOutput,
-  quieten
+  quieten,
+  collapseAll,
+  expandAll
 }
 
 const hideUnchanged = e => noDefault(e, () => {

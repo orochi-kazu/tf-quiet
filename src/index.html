@@ -2,6 +2,8 @@
   <head>
     <title>TF Quiet</title>
     <meta name="description" content="Dynamically cut out the noise from terraform plan output (post-hoc)">
+    <!-- favicon: "quiet" by mungang kim, KR - from the Noun Project -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="stylesheet" href="./style.css"/>
   </head>
 
@@ -21,6 +23,8 @@
           <input id="hide-comments" type="checkbox" onChange="javascript:hideComments(event)"/>
           <label for="hide-comments">Hide comments</label>
         </span>
+        <button onClick="javascript:collapseAll(event)" class="secondary alt">Collapse all</button>
+        <button onClick="javascript:expandAll(event)" class="secondary alt">Expand all</button>
       </div>
     </form>
 
@@ -29,10 +33,10 @@
 
     <script type="module">
       import { onClick, onChange } from './tf-quiet.js'
-      const globalFrom = container => it => { globalThis[it] = container[it] };
+      const globalFrom = (container, names) => { names.forEach(it => { globalThis[it] = container[it] }) }
 
-      ['quieten', 'clearInput', 'clearOutput'].forEach(globalFrom(onClick));
-      ['hideUnchanged', 'hideComments'].forEach(globalFrom(onChange))
+      globalFrom(onClick, ['quieten', 'clearInput', 'clearOutput', 'collapseAll', 'expandAll'])
+      globalFrom(onChange, ['hideUnchanged', 'hideComments'])
     </script>
     <script src="./collapsible-block.js" charset="utf-8"></script>
   </body>
