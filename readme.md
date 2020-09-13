@@ -22,8 +22,8 @@ npm start
 ## Roadmap
 
 - [x] Highlight unfiltered output
-- [ ] Collapse resources with no changes (checkbox defaults to `on`)
-- [o] Hide lines with no changes (checkbox defaults to `on`)
+- [x] Collapse resources
+- [x] Hide lines with no changes
 - [x] Publish as interactive app
 
 ## Contributing

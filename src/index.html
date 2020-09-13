@@ -13,22 +13,23 @@
       <textarea id="tf-plan" rows="8"></textarea>
       <button type="submit" class="primary">Quieten</button>
       <button onClick="javascript:clearOutput(event)" class="secondary alt">Clear output</button>
-
-      <div id="controls">
-        <span>
-          <input id="hide-unchanged" type="checkbox" onChange="javascript:hideUnchanged(event)"/>
-          <label for="hide-unchanged">Hide unchanged lines</label>
-        </span>
-        <span>
-          <input id="hide-comments" type="checkbox" onChange="javascript:hideComments(event)"/>
-          <label for="hide-comments">Hide comments</label>
-        </span>
-        <button onClick="javascript:collapseAll(event)" class="secondary alt">Collapse all</button>
-        <button onClick="javascript:expandAll(event)" class="secondary alt">Expand all</button>
-      </div>
     </form>
 
-    <div id="summary"></div>
+    <div id="summary" class="hidden"></div>
+
+    <div id="controls" class="hidden">
+      <span>
+        <input id="hide-unchanged" type="checkbox" onChange="javascript:hideUnchanged(event)"/>
+        <label for="hide-unchanged">Hide unchanged lines</label>
+      </span>
+      <button onClick="javascript:collapseAll(event)" class="secondary alt">Collapse all</button>
+      <button onClick="javascript:expandAll(event)" class="secondary alt">Expand all</button>
+      <span>
+        <input id="hide-comments" type="checkbox" onChange="javascript:hideComments(event)"/>
+        <label for="hide-comments">Hide comments</label>
+      </span>
+    </div>
+
     <div id="quiet"></div>
 
     <script type="module">

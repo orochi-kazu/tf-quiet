@@ -8,11 +8,15 @@ const clearInput = e => noDefault(e, () => {
   clearContents('#tf-plan')
 })
 const clearOutput = e => noDefault(e, () => {
+  findAll('input#hide-unchanged,input#hide-comments').forEach(it => { it.checked = false })
   clearContents('#summary')
   clearContents('#quiet')
+  setHidden(true, '#controls,#summary')
 })
 const quieten = e => noDefault(e, () => {
   clearOutput()
+  setHidden(false, '#controls,#summary')
+
   const planEl = find('#tf-plan')
   const lines = trimEnds(planEl.value.split('\n'))
 
@@ -48,9 +52,8 @@ const hideComments = e => noDefault(e, () => {
 })
 
 const setHidden = (hidden, classSelector) => {
-  const addHidden = it => { it.classList.add('hidden') }
-  const removeHidden = it => { it.classList.remove('hidden') }
-  findAll(classSelector).forEach(hidden ? addHidden : removeHidden)
+  const action = hidden ? 'add' : 'remove'
+  findAll(classSelector).forEach(it => { it.classList[action]('hidden') })
 }
 
 const onChange = {
@@ -66,7 +69,7 @@ const noDefault = (e, f) => {
 const setSummary = summary => {
   clearContents('#summary');
   ['add', 'change', 'destroy'].forEach(op => {
-    const el = create('div', `summary ${op}`, `${summary[op]} to ${op}`)
+    const el = create('span', `summary ${op}`, `${summary[op]} to ${op}`)
     add('#summary', el)
   })
 }
