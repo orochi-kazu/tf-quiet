@@ -17,7 +17,7 @@ const quieten = e => noDefault(e, () => {
   clearOutput()
 
   const planEl = find('#tf-plan')
-  const lines = trimEnds(planEl.value.split('\n'))
+  const lines = trimEnds(planEl.value.split('\n').concat(''))
 
   const summary = summaryFromLines(lines)
   setSummary(summary)
