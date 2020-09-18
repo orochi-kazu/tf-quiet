@@ -95,10 +95,14 @@ button.tertiary {
   text-align: center;
   padding: 0.25rem;
 }
+.summary.no-change {
+  background-color: lavender;
+  color: blueviolet;
+}
 .summary.add, .tf-line.add {
   background-color: palegreen;
 }
-.summary.change, .tf-line.change {
+.summary.unknown, .summary.change, .tf-line.change {
   background-color: lemonchiffon;
 }
 .summary.destroy, .tf-line.destroy {

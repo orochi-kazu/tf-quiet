@@ -15,7 +15,6 @@ const clearOutput = e => noDefault(e, () => {
 })
 const quieten = e => noDefault(e, () => {
   clearOutput()
-  setHidden(false, '#controls,#summary')
 
   const planEl = find('#tf-plan')
   const lines = trimEnds(planEl.value.split('\n'))
@@ -23,9 +22,15 @@ const quieten = e => noDefault(e, () => {
   const summary = summaryFromLines(lines)
   setSummary(summary)
 
-  const tree = tfPlanLinesToTree(lines)
-  const res = resourcesFromTree(tree.children)
-  res.forEach(el => add('#quiet', el))
+  if (summary.noChange) {
+    setHidden(false, '#summary')
+  } else {
+    setHidden(false, '#controls,#summary')
+
+    const tree = tfPlanLinesToTree(lines)
+    const res = resourcesFromTree(tree.children)
+    res.forEach(el => add('#quiet', el))
+  }
 })
 const collapseAll = e => noDefault(e, () => {
   findAll('collapsible-block').forEach(it => { it.collapse() })
@@ -67,11 +72,15 @@ const noDefault = (e, f) => {
 }
 
 const setSummary = summary => {
-  clearContents('#summary');
-  ['add', 'change', 'destroy'].forEach(op => {
-    const el = create('span', `summary ${op}`, `${summary[op]} to ${op}`)
-    add('#summary', el)
-  })
+  clearContents('#summary')
+  const cells = summary.noChange
+    ? [create('span', 'summary no-change', summary.noChange)]
+    : summary.unknown
+      ? [create('span', 'summary unknown', summary.unknown)]
+      : ['add', 'change', 'destroy'].map(op =>
+        create('span', `summary ${op}`, `${summary[op]} to ${op}`)
+      )
+  cells.forEach(it => { add('#summary', it) })
 }
 
 const classForLine = line => ({
@@ -86,8 +95,9 @@ const classForLine = line => ({
 )
 
 const trimEnds = lines => {
-  const start = indexOfFirstLine(lines)
-  const end = indexOfLastLine(lines)
+  const start = Math.max(0, indexOfFirstLine(lines))
+  const lastLine = indexOfLastLine(lines)
+  const end = (lastLine > 0) ? lines.length : lastLine
   return [...lines].slice(start, end)
 }
 
@@ -95,10 +105,17 @@ const indexOfFirstLine = lines =>
   lines.findIndex(line => line.startsWith('Terraform will perform the following actions:'))
 
 const indexOfLastLine = lines =>
-  -[...lines].reverse().findIndex(line => line.startsWith('Plan:'))
+  -[...lines].reverse().findIndex(line => line.startsWith('Plan:') || line.startsWith('No changes.'))
 
 const summaryFromLines = lines => {
-  const parts = lines[lines.length - 1].slice('Plan: '.length, -1).split(', ')
+  const summaryLine = lines[lines.length - 1]
+  if (summaryLine.startsWith('No changes.')) {
+    return { noChange: summaryLine }
+  }
+  const parts = summaryLine.slice('Plan: '.length, -1).split(', ')
+  if (!parts || parts.length <= 1) {
+    return { unknown: 'Cannot find plan summary line! :(' }
+  }
   return parts.reduce((acc, curr) => {
     const [num, op] = curr.split(' to ')
     acc[op] = parseInt(num)
