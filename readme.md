@@ -1,4 +1,4 @@
-# terraform --quiet
+# terraform plan --quiet
 
 The output of large terraform plans is super noisy.
 This app intends to add some nice UX around it, to highlight the most relevant bits.

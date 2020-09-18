@@ -2,7 +2,17 @@
   outline-color: blueviolet;
 }
 
-span {
+body {
+  min-height: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0.5rem;
+
+  display: flex;
+  flex-direction: column;
+}
+
+span, footer {
   font-family: sans-serif;
 }
 form {
@@ -123,4 +133,12 @@ collapsible-block {
 
   display: block;
   overflow: scroll;
+}
+
+div#quiet {
+  flex-grow: 1;
+}
+
+footer {
+  text-align: right;
 }
